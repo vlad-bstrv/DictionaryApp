@@ -1,9 +1,8 @@
 package com.vladbstrv.dictionaryapp.domain.repositories
 
-import com.vladbstrv.dictionaryapp.domain.entities.WordData
-import io.reactivex.Observable
+import io.reactivex.Single
 
 interface WordsRepository<T> {
 
-    fun getData(word: String): Observable<T>
+    fun getData(word: String): Single<T>
 }
