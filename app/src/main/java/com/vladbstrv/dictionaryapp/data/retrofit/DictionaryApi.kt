@@ -1,7 +1,7 @@
 package com.vladbstrv.dictionaryapp.data.retrofit
 
 import com.vladbstrv.dictionaryapp.data.dto.WordDto
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
 

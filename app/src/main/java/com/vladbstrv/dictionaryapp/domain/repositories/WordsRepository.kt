@@ -1,8 +1,10 @@
 package com.vladbstrv.dictionaryapp.domain.repositories
 
-import io.reactivex.Single
+import com.vladbstrv.dictionaryapp.domain.entities.WordData
+import io.reactivex.rxjava3.core.Single
 
-interface WordsRepository<T> {
 
-    fun getData(word: String): Single<T>
+interface WordsRepository {
+
+    fun getData(word: String): Single<List<WordData>>
 }
