@@ -2,16 +2,20 @@ package com.vladbstrv.dictionaryapp.data.dto
 
 import com.google.gson.annotations.SerializedName
 
+private const val TEXT = "text"
+private const val MEANINGS = "meanings"
+private const val TRANSLATION = "translation"
+
 data class WordDto(
-    @SerializedName("text")
+    @SerializedName(TEXT)
     val text: String,
 
-    @SerializedName("meanings")
+    @SerializedName(MEANINGS)
     val meanings: List<Meanings>
 )
 
 class Meanings(
-    @field:SerializedName("translation") val translation: Translation,
+    @SerializedName(TRANSLATION) val translation: Translation,
 )
 
-class Translation(@field:SerializedName("text") val translation: String)
+class Translation(@SerializedName(TEXT) val translation: String)

@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.vladbstrv.dictionaryapp.R
+import com.vladbstrv.dictionaryapp.databinding.ItemWordActivityMainBinding
 import com.vladbstrv.dictionaryapp.domain.entities.WordData
 
 class MainAdapter(private var data: List<WordData>):
@@ -17,10 +18,12 @@ class MainAdapter(private var data: List<WordData>):
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerItemViewHolder {
-        return RecyclerItemViewHolder(
-            LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_word_activity_main, parent, false) as View
-        )
+        val itemBinding = ItemWordActivityMainBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return RecyclerItemViewHolder(itemBinding.root)
+//        RecyclerItemViewHolder(
+//            LayoutInflater.from(parent.context)
+//                .inflate(R.layout.item_word_activity_main, parent, false) as View
+//        )
     }
 
     override fun onBindViewHolder(holder: RecyclerItemViewHolder, position: Int) {
@@ -31,12 +34,12 @@ class MainAdapter(private var data: List<WordData>):
         return data.size
     }
 
-    inner class RecyclerItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class RecyclerItemViewHolder(itemBinding: View) : RecyclerView.ViewHolder(itemBinding) {
 
         fun bind(data: WordData) {
-            if (layoutPosition != RecyclerView.NO_POSITION) {
-                itemView.findViewById<TextView>(R.id.header_textview_recycler_item).text = data.text
-                itemView.findViewById<TextView>(R.id.description_textview_recycler_item).text = data.translate
+            ItemWordActivityMainBinding.bind(itemView).apply {
+                headerTextviewRecyclerItem.text = data.text
+                descriptionTextviewRecyclerItem.text = data.translate
             }
         }
     }

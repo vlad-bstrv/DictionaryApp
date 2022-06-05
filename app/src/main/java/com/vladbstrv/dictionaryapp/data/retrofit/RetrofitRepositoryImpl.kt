@@ -8,10 +8,10 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RetrofitRepositoryImpl: WordsRepository {
+class RetrofitRepositoryImpl(private val url: String): WordsRepository {
 
     private val retrofit = Retrofit.Builder()
-        .baseUrl("https://dictionary.skyeng.ru/api/public/v1/")
+        .baseUrl(url)
         .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
         .addConverterFactory(GsonConverterFactory.create())
         .build()

@@ -29,8 +29,10 @@ class MainActivity : AppCompatActivity(), MainActivityContract.View {
     }
 
     override fun setSuccess(words: List<WordData>) {
-        binding.wordsRecyclerView.layoutManager = LinearLayoutManager(this)
-        binding.wordsRecyclerView.adapter = MainAdapter(words)
+        with(binding.wordsRecyclerView) {
+            layoutManager = LinearLayoutManager(this@MainActivity)
+            adapter = MainAdapter(words)
+        }
     }
 
 
@@ -39,12 +41,17 @@ class MainActivity : AppCompatActivity(), MainActivityContract.View {
     }
 
     override fun showProgress() {
-        binding.progressBar.visibility = View.VISIBLE
-        binding.searchWordButton.isEnabled = false
+        with(binding){
+            progressBar.visibility = View.VISIBLE
+            searchWordButton.isEnabled = false
+        }
+
     }
 
     override fun hideProgress() {
-        binding.progressBar.visibility = View.GONE
-        binding.searchWordButton.isEnabled = true
+        with(binding) {
+            progressBar.visibility = View.GONE
+            searchWordButton.isEnabled = true
+        }
     }
 }

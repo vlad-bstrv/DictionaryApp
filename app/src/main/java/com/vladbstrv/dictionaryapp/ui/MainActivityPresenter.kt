@@ -20,7 +20,7 @@ class MainActivityPresenter(val repository: WordsRepository) : MainActivityContr
 
     override fun getTranslateWord(word: String) {
         view?.showProgress()
-        val a = repository.getData(word)
+        repository.getData(word)
         compositeDisposable.add(
             repository
                 .getData(word)
