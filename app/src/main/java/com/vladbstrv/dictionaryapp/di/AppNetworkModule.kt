@@ -48,15 +48,4 @@ class AppNetworkModule {
             .addConverterFactory(factory)
             .build()
     }
-
-//    private val retrofit = Retrofit.Builder()
-//        .baseUrl(url)
-//        .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-//        .addConverterFactory(GsonConverterFactory.create())
-//        .build()
-//
-//    private val api: DictionaryApi = retrofit.create(DictionaryApi::class.java)
-
-//    private const val URL = "https://dictionary.skyeng.ru/api/public/v1/"
-//    val wordsRepo: WordsRepository by lazy { RetrofitRepositoryImpl(URL) }
 }

@@ -6,9 +6,7 @@ import javax.inject.Singleton
 
 @Singleton
 @Component(
-    modules = [
-        AppNetworkModule::class
-    ]
+    modules = [AppNetworkModule::class, AppModule::class]
 )
 interface AppComponent {
     fun inject(mainActivity: MainActivity)
