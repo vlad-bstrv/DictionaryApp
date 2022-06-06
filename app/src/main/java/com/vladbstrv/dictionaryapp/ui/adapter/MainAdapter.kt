@@ -20,10 +20,6 @@ class MainAdapter(private var data: List<WordData>):
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerItemViewHolder {
         val itemBinding = ItemWordActivityMainBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return RecyclerItemViewHolder(itemBinding.root)
-//        RecyclerItemViewHolder(
-//            LayoutInflater.from(parent.context)
-//                .inflate(R.layout.item_word_activity_main, parent, false) as View
-//        )
     }
 
     override fun onBindViewHolder(holder: RecyclerItemViewHolder, position: Int) {

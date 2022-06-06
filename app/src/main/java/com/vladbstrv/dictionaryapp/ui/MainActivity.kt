@@ -4,54 +4,48 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.view.isVisible
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vladbstrv.dictionaryapp.app
 import com.vladbstrv.dictionaryapp.databinding.ActivityMainBinding
 import com.vladbstrv.dictionaryapp.domain.entities.WordData
+import com.vladbstrv.dictionaryapp.domain.repositories.WordsRepository
 import com.vladbstrv.dictionaryapp.ui.adapter.MainAdapter
+import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), MainActivityContract.View {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private var presenter: MainActivityContract.Presenter? = null
-    private lateinit var adapter: MainAdapter
+    @Inject
+    lateinit var vmFactory: MainActivityViewModelFactory
+    private val viewModel: MainActivityViewModelContract.ViewModel by lazy {
+        ViewModelProvider(this, vmFactory)[(MainActivityViewModel::class.java)]
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        presenter = MainActivityPresenter(app.wordsRepo)
-        presenter?.onAttach(this)
+
+        app.appComponent.inject(this)
 
         binding.searchWordButton.setOnClickListener {
-            presenter?.getTranslateWord(binding.searchWordEditText.text.toString())
-        }
-    }
-
-    override fun setSuccess(words: List<WordData>) {
-        with(binding.wordsRecyclerView) {
-            layoutManager = LinearLayoutManager(this@MainActivity)
-            adapter = MainAdapter(words)
-        }
-    }
-
-
-    override fun setError(error: String) {
-        Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
-    }
-
-    override fun showProgress() {
-        with(binding){
-            progressBar.visibility = View.VISIBLE
-            searchWordButton.isEnabled = false
+            viewModel.getTranslateWord(binding.searchWordEditText.text.toString())
         }
 
-    }
+        viewModel.data.observe(this) {
+            with(binding.wordsRecyclerView) {
+                layoutManager = LinearLayoutManager(this@MainActivity)
+                adapter = MainAdapter(it)
+            }
+        }
 
-    override fun hideProgress() {
-        with(binding) {
-            progressBar.visibility = View.GONE
-            searchWordButton.isEnabled = true
+        viewModel.inProgress.observe(this) {
+            with(binding) {
+                progressBar.isVisible = it
+                searchWordButton.isEnabled = !it
+            }
         }
     }
 }

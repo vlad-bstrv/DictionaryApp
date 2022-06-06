@@ -2,12 +2,18 @@ package com.vladbstrv.dictionaryapp
 
 import android.app.Application
 import android.content.Context
-import com.vladbstrv.dictionaryapp.data.retrofit.RetrofitRepositoryImpl
-import com.vladbstrv.dictionaryapp.domain.repositories.WordsRepository
+import com.vladbstrv.dictionaryapp.di.AppComponent
+import com.vladbstrv.dictionaryapp.di.DaggerAppComponent
 
-private const val URL = "https://dictionary.skyeng.ru/api/public/v1/"
 class App : Application() {
-    val wordsRepo: WordsRepository by lazy { RetrofitRepositoryImpl(URL) }
+
+    lateinit var appComponent: AppComponent
+    override fun onCreate() {
+        super.onCreate()
+        appComponent = DaggerAppComponent
+            .builder()
+            .build()
+    }
 }
 
 val Context.app: App
