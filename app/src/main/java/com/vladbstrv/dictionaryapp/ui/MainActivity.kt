@@ -8,19 +8,26 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.vladbstrv.dictionaryapp.app
 import com.vladbstrv.dictionaryapp.databinding.ActivityMainBinding
 import com.vladbstrv.dictionaryapp.domain.entities.WordData
+import com.vladbstrv.dictionaryapp.domain.repositories.WordsRepository
 import com.vladbstrv.dictionaryapp.ui.adapter.MainAdapter
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), MainActivityContract.View {
 
     private lateinit var binding: ActivityMainBinding
     private var presenter: MainActivityContract.Presenter? = null
-    private lateinit var adapter: MainAdapter
+
+    @Inject
+    lateinit var wordsRepository: WordsRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        presenter = MainActivityPresenter(app.wordsRepo)
+
+        app.appComponent.inject(this)
+
+        presenter = MainActivityPresenter(wordsRepository)
         presenter?.onAttach(this)
 
         binding.searchWordButton.setOnClickListener {
