@@ -5,7 +5,7 @@ import com.vladbstrv.dictionaryapp.domain.entities.WordData
 
 class Mapper {
 
-    fun mapWordDtoToEntity(wordDto: List<WordDto>): List<WordData> {
+    fun mapWordDtoToEntity(wordDto: List<WordDto>):List<WordData> {
         val list: MutableList<WordData> = mutableListOf()
 
         for (word in wordDto) {

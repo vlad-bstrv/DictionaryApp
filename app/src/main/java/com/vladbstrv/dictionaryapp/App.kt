@@ -1,20 +1,19 @@
 package com.vladbstrv.dictionaryapp
 
 import android.app.Application
-import android.content.Context
-import com.vladbstrv.dictionaryapp.di.AppComponent
-import com.vladbstrv.dictionaryapp.di.DaggerAppComponent
+import com.vladbstrv.dictionaryapp.di.appModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
 
 class App : Application() {
 
-    lateinit var appComponent: AppComponent
     override fun onCreate() {
         super.onCreate()
-        appComponent = DaggerAppComponent
-            .builder()
-            .build()
+        startKoin {
+            androidLogger()
+            androidContext(this@App)
+            modules(appModule)
+        }
     }
 }
-
-val Context.app: App
-    get() = applicationContext as App
