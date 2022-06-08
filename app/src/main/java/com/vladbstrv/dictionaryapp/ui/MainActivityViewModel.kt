@@ -17,9 +17,8 @@ class MainActivityViewModel(val repository: WordsRepository) : MainActivityViewM
         inProgress.postValue(true)
 
         viewModelScope.launch {
-            val a = repository.getData(word)
             inProgress.postValue(false)
-            data.postValue(a)
+            data.postValue(repository.getData(word))
         }
     }
 }
