@@ -1,5 +1,6 @@
 package com.vladbstrv.dictionaryapp.di
 
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.vladbstrv.dictionaryapp.data.retrofit.DictionaryApi
 import com.vladbstrv.dictionaryapp.data.retrofit.RetrofitRepositoryImpl
 import com.vladbstrv.dictionaryapp.domain.repositories.WordsRepository
@@ -20,7 +21,7 @@ val appModule = module {
     single<Retrofit> {
         Retrofit.Builder()
             .baseUrl(get<String>(named(API_URL)))
-            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .addConverterFactory(get())
             .build()
     }
